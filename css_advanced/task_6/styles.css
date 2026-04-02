@@ -380,7 +380,7 @@ section.faq {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 75px 0;
+  padding: 50px 0 40px 0; /* Reduce vertical padding */
 }
 
 section.faq h1 {
@@ -388,13 +388,13 @@ section.faq h1 {
   font-size: 60px;
   font-weight: 300;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px; /* Reduce space below heading */
 }
 
 .faq-bloc {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 100px 200px;
+  gap: 40px 80px; /* Reduce vertical and horizontal gap */
   width: 75%;
 }
 
@@ -402,7 +402,7 @@ section.faq h1 {
   background: transparent;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 15px; /* Reduce gap between heading and paragraph */
 }
 
 .faq-item h2 {
@@ -410,7 +410,7 @@ section.faq h1 {
   font-size: 16px;
   font-weight: 600;
   text-align: left;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .faq-item p {
