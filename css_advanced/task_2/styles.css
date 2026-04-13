@@ -51,7 +51,6 @@ body {
     font-family: SourceSansPro;
     color: white;
     text-align: center;
-    min-width: 320px;
 }
 
 html,
@@ -63,22 +62,23 @@ body {
 /* ----- HEADER ----- */
 
 header {
-    width: min(100%, 1000px);
-    height: 32px;
+    width: 800px;
+    margin: 0 auto;
+    height: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    top: 35px;
     left: 0;
     right: 0;
-    margin: 0 auto;
-    padding: 0 20px;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
     z-index: 100;
 }
 
 header div {
-    width: 235px;
+    width: 234px;
     height: 15px;
     display: flex;
     justify-content: space-between;
@@ -86,8 +86,6 @@ header div {
 
 header a {
     font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0;
     text-decoration: none;
 }
 
@@ -111,61 +109,60 @@ section {
 
 .hero .title h1 {
     font-size: 120px;
-    font-weight: 700;
-    line-height: 1;
 }
 
 .title p {
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0;
-    word-spacing: 52px;
-    white-space: nowrap;
-    margin: 35px 0 35px;
+    width: 100%;
+    max-width: 250px;
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 25px;;
+}
+
+.title p::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
 }
 
 section.hero {
-    background-image: radial-gradient(circle at 50% 10%, rgba(65, 75, 96, 0.45) 0%, rgba(7, 22, 41, 0.88) 58%, rgba(7, 22, 41, 0.98) 100%), url("../assets/background.png");
-    background-size: cover;
+    background-image: url("../assets/background.png");
+    background-size: 100% auto;
     background-position: center;
-    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-height: 1000px;
-    padding: 0 20px 72px;
+    min-height: 100vh;
+    padding: 75px;
 }
 
 section .title {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 220px;
+    padding-top: 150px;
 }
 
 button {
     background-color: #C271FF;
     border-radius: 999px;
-    padding: 14px 24px;
+    padding: 15px 25px;
     border: none;
     color: white;
-    font-size: 14px;
-    font-weight: 600;
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.5);
-    cursor: pointer;
 }
 
 section .pros {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 85px;
-    margin-top: 170px;
+    gap: 75px;
+    margin-top: 150px;
 }
 
 section .pros h2 {
-    font-family: SourceSansPro;
+	font-family: SourceSansPro;
     font-weight: 300;
     font-size: 32px;
 }
@@ -183,9 +180,8 @@ section .people p {
 section .people {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 95px;
+    align-items: center;
+    gap: 125px;
     width: 100%;
 }
 
@@ -193,21 +189,8 @@ section .people div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
     width: 150px;
-}
-
-section .people h3 {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.5;
-}
-
-section .people blockquote {
-    font-size: 16px;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.5;
 }
 
 .round-image {
