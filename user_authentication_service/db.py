@@ -67,16 +67,10 @@ class DB:
 
         If an arg doesn't correspond to the user, raise ValueError
         """
-        try:
-            user = self.find_user_by(id=user_id)
-        except NoResultFound:
-            raise NoResultFound
-        except Exception:
-            raise InvalidRequestError
-        for arg in kwargs:
-            try:
-                hasattr(user, arg)
-            except Exception:
-                raise ValueError
-            setattr(user, arg, kwargs[arg])
+        user = self.find_user_by(id=user_id)
+
+        for arg, value in kwargs.items():
+            if not hasattr(user, arg):
+                raise ValueError()
+            setattr(user, arg, value)
         self._session.commit()
