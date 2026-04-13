@@ -2,18 +2,54 @@
 """
 Module used to authenticate users to database.
 """
-import bcrypt
+import hashlib
+import hmac
+import os
 import uuid
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 from user import User
+
+try:
+    import bcrypt  # type: ignore
+except ModuleNotFoundError:
+    bcrypt = None
 
 
 def _hash_password(password: str) -> bytes:
     """
     Returns salted and hashed password using bcrypt.hashpw()
     """
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    if bcrypt is not None:
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    salt = os.urandom(16)
+    digest = hashlib.pbkdf2_hmac(
+        "sha256", password.encode("utf-8"), salt, 100_000
+    )
+    return b"pbkdf2_sha256$" + salt.hex().encode("utf-8") + b"$" + digest.hex().encode("utf-8")
+
+
+def _is_valid_password(password: str, hashed_password: bytes) -> bool:
+    """Verify a password against either bcrypt or fallback hash format."""
+    if bcrypt is not None:
+        return bcrypt.checkpw(password.encode("utf-8"), hashed_password)
+
+    try:
+        algo, salt_hex, digest_hex = hashed_password.split(b"$", 2)
+    except ValueError:
+        return False
+
+    if algo != b"pbkdf2_sha256":
+        return False
+
+    recomputed = hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode("utf-8"),
+        bytes.fromhex(salt_hex.decode("utf-8")),
+        100_000,
+    ).hex().encode("utf-8")
+    return hmac.compare_digest(recomputed, digest_hex)
 
 
 def _generate_uuid() -> str:
@@ -67,8 +103,7 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             if user:
-                return bcrypt.checkpw(password.encode('utf-8'),
-                                      user.hashed_password)
+                return _is_valid_password(password, user.hashed_password)
             return False
         except NoResultFound as e:
             return False
