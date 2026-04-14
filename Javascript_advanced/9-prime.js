@@ -1,0 +1,25 @@
+'use strict';
+
+function countPrimeNumbers() {
+    function checkPrimeNumber(n) {
+        for (let i = 2; i < n; i++) {
+            if (n % i === 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    let count = 0;
+    for (let j = 2; j <= 100; j++) {
+        if (checkPrimeNumber(j)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+let a = performance.now();
+countPrimeNumbers();
+let b = performance.now();
+console.log('Execution time of printing countPrimeNumbers was ' + (b - a) + ' milliseconds.');
